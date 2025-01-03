@@ -5,10 +5,9 @@ try:
 	from telethon.sessions import StringSession
 	from colorama import init
 	from termcolor import colored
-except:
+except ImportError:
+	import os
 	os.system('pip install telethon')
-	os.system('pip install colorama')
-	os.system('pip install termcolor')
 	from telethon.sync import TelegramClient
 	from telethon.sessions import StringSession
 	from colorama import init
@@ -28,12 +27,11 @@ if apis == []:
     api_id = int(input("\033[34mApi\033[37mId: \033[34m"))
     api_hash = input("\033[34mApi\033[37mHash: \033[34m")
     with TelegramClient(StringSession(), api_id, api_hash) as client:
-    	ss = client.session.save()
-    api_id = int(str(api_id).replace(' ',''))
-    api_hash = api_hash.replace(' ','')
-    apiss = open('api.txt', 'w')
-    apiss.write(str(api_id))
-    apiss.write('\n')
+        ss = client.session.save()
+    api_id = int(api_id.replace(' ', ''))
+    api_hash = api_hash.replace(' ', '')
+    with open('api.txt', 'w') as apiss:
+        apiss.write(str(api_id) + '\n')
     apiss.write(api_hash+'\n'+ss)
     apiss = apiss.close()
     ewdewde = input("\n\033[34mPress enter to \033[37mExit\033[34m.")
@@ -47,8 +45,9 @@ elif len(apis) == 2:
     print("\n\033[34mIf you want to change your \033[37mapi\033[34m delete '\033[37mapi.txt\033[34m'.")
     print('\n')
     with TelegramClient(StringSession(), api_id, api_hash) as client:
-    	ss = client.session.save()
-    apiss = open('api.txt', 'a').write(f'\n{ss}')
+        ss = client.session.save()
+    with open('api.txt', 'a') as apiss:
+        apiss.write(f'\n{ss}')
     sdwed = input("\033[37mPress enter to \033[34mExit\033[37m.")
     os.system('clear || cls')
     exit()
@@ -56,7 +55,7 @@ elif len(apis) == 3:
     api_id = int(apis[0])
     api_hash = apis[1]
     string = apis[2]
-    print("CYCheck Scrapper - New Version")
+    print(" Scrap CCV - New Version")
     sdwed = input("\033[37mPress enter to \033[34mcontinue\033[37m.")
     os.system('clear || cls')
 try: os.chdir('Scraped')
@@ -88,16 +87,17 @@ with TelegramClient(StringSession(string), api_id, api_hash) as client:
     print(clorr2 + "Scraping" + clorr1 + " Started...")
     binuu = chanil
     try:
-    	chanil = client.get_entity(chanil)
-    	print(colored('\n Enter The Name For Output File = ',color = 'magenta'),end = '')
-    	onichan = input()
+        chanil = client.get_entity(chanil)
+        print(colored('\n Enter The Name For Output File = ', color='magenta'), end='')
+        onichan = input()
     except:
-    	chanil = binuu
-    	onichan = chanil
+        chanil = binuu
+        onichan = chanil
     for message in client.iter_messages(chanil):
         if din <= message.date.strftime('%Y-%m-%d'):
-        	msg = str(message.text)
-        else: break
+            msg = str(message.text)
+        else:
+            break
         msgln = len(msg)
         rr = 0
         cc = ""
@@ -138,49 +138,51 @@ with TelegramClient(StringSession(string), api_id, api_hash) as client:
         f = 0
         d = 0
         def detector(detect):
-        	global f,d
-        	f = int(detect.count('|'))
-        	d = int(f//3)
+            global f, d
+            f = int(detect.count('|'))
+            d = int(f // 3)
         detector(r)
-        if d >=2:
-        					if f%3==0:
-        						r = r.replace('\n',' ')
-        						l = r.split(' ')
-        						for i in range(d):
-        							try:
-        								c.add(l[i])
-        							except: pass
-        						for item in c:
-        							if len(item) == 28 and "|" not in str(item)[0:14] and "|" not in str(item)[26:28] :
-        								if item not in repeated:
-        									repeated.add(item)
-        									texti.write(f'{item}\n')
-        									cnter +=1
-        									if clord == 0:
-        										clord = 1
-        										print(clorr1 + str(cnter) + clorr2 + "|" + clorr1 + onichan + clorr2 + "|" + clorr1 + "CyMon" + clorr2 + "|" + clorr1 + "CYCheck" + clorr2 + "|" + clorr1 + "CYSCRAPE" + clorr2 + "|" + clorr1 + "XMON")
-        									elif clord == 1:
-        										clord = 0
-        										print(clorr2 + str(cnter) + clorr1 + "|" + clorr1 + onichan + clorr2 + "|" + clorr2 + "CyMon" + clorr1 + "|" + clorr2 + "CYCheck" + clorr1 + "|" + clorr2 + "CYSCRAPE" + clorr1 + "|" + clorr2 + "XMON")
-        							elif len(item) == 26 and "|" not in str(item)[0:14] and "|" not in str(item)[24:26] :
-        								repeated.add(item)
-        								mm = item.split('|')[1]
-        								anos = item.split('|')[2]
-        								cvv = item.split('|')[3]
-        								item = item.split('|')[0]
-        								items = '20'+str(anos)
-        								item = f'{item}|{mm}|{items}|{cvv}'
-        								if item not in repeated:
-        									texti.write(f'{item}\n')
-        									texti.close
-        									cnter +=1
-        									if clord == 0:
-        										clord = 1
-        										print(clorr1 + str(cnter) + clorr2 + "|" + clorr1 + onichan + clorr2 + "|" + clorr1 + "CyMon" + clorr2 + "|" + clorr1 + "CYCheck" + clorr2 + "|" + clorr1 + "CYSCRAPE" + clorr2 + "|" + clorr1 + "XMON")
-        									elif clord == 1:
-        										clord = 0
-        										print(clorr2 + str(cnter) + clorr1 + "|" + clorr1 + onichan + clorr2 + "|" + clorr2 + "CyMon" + clorr1 + "|" + clorr2 + "CYCheck" + clorr1 + "|" + clorr2 + "CYSCRAPE" + clorr1 + "|" + clorr2 + "XMON")
-        					else: pass
+        if d >= 2:
+            if f % 3 == 0:
+                r = r.replace('\n', ' ')
+                l = r.split(' ')
+                for i in range(d):
+                    try:
+                        c.add(l[i])
+                    except Exception as e:
+                        pass
+                    for item in c:
+                        if len(item) == 28 and "|" not in str(item)[0:14] and "|" not in str(item)[26:28]:
+                            if item not in repeated:
+                                repeated.add(item)
+                                texti.write(f'{item}\n')
+                                cnter += 1
+                                if clord == 0:
+                                    clord = 1
+                                    print(clorr1 + str(cnter) + clorr2 + "|" + clorr1 + onichan + clorr2 + "|" + clorr1 + "CyMon" + clorr2 + "|" + clorr1 + "CYCheck" + clorr2 + "|" + clorr1 + "CYSCRAPE" + clorr2 + "|" + clorr1 + "XMON")
+                                elif clord == 1:
+                                    clord = 0
+                                    print(clorr2 + str(cnter) + clorr1 + "|" + clorr1 + onichan + clorr2 + "|" + clorr2 + "CyMon" + clorr1 + "|" + clorr2 + "CYCheck" + clorr1 + "|" + clorr2 + "CYSCRAPE" + clorr1 + "|" + clorr2 + "XMON")
+                                elif len(item) == 26 and "|" not in str(item)[0:14] and "|" not in str(item)[24:26]:
+                                    repeated.add(item)
+                                    mm = item.split('|')[1]
+                                    anos = item.split('|')[2]
+                                    cvv = item.split('|')[3]
+                                    item = item.split('|')[0]
+                                    items = '20' + str(anos)
+                                    item = f'{item}|{mm}|{items}|{cvv}'
+                                    if item not in repeated:
+                                        texti.write(f'{item}\n')
+                                        texti.close()
+                                        cnter +=1
+                                        if clord == 0:
+                                            clord = 1
+                                            print(clorr1 + str(cnter) + clorr2 + "|" + clorr1 + onichan + clorr2 + "|" + clorr1 + "CyMon" + clorr2 + "|" + clorr1 + "CYCheck" + clorr2 + "|" + clorr1 + "CYSCRAPE" + clorr2 + "|" + clorr1 + "XMON")
+                                        elif clord == 1:
+                                            clord = 0
+                                            print(clorr2 + str(cnter) + clorr1 + "|" + clorr1 + onichan + clorr2 + "|" + clorr2 + "CyMon" + clorr1 + "|" + clorr2 + "CYCheck" + clorr1 + "|" + clorr2 + "CYSCRAPE" + clorr1 + "|" + clorr2 + "XMON")
+                                        else:
+                                            pass
         if "|" in cc:
             cc = cc.split('\n')
             ccln = len(cc)
@@ -214,19 +216,20 @@ with TelegramClient(StringSession(string), api_id, api_hash) as client:
                         yyy = '20'+str(yyy)
                         cch = f'{ccn}|{mmm}|{yyy}|{cbv}'
                         if cch not in repeated:
-                        	repeated.add(cch)
-                        	ccp.append(cch)
-                        	texti.write(ccp[-1])
-                        	texti.write('\n')
-                        	texti.close
-                        	cnter = cnter + 1
-                        	if clord == 0:
-                        	   	clord = 1
-                        	   	print(clorr1 + str(cnter) + clorr2 + "|" + clorr1 + onichan + clorr2 + "|" + clorr1 + "CyMon" + clorr2 + "|" + clorr1 + "CYCheck" + clorr2 + "|" + clorr1 + "CYSCRAPE" + clorr2 + "|" + clorr1 + "XMON")
-                        	elif clord == 1:
-                        	   	clord = 0
-                        	   	print(clorr2 + str(cnter) + clorr1 + "|" + clorr1 + onichan + clorr2 + "|" + clorr2 + "CyMon" + clorr1 + "|" + clorr2 + "CYCheck" + clorr1 + "|" + clorr2 + "CYSCRAPE" + clorr1 + "|" + clorr2 + "XMON")
-                        	else: pass
+                            repeated.add(cch)
+                            ccp.append(cch)
+                            texti.write(ccp[-1])
+                            texti.write('\n')
+                            texti.close
+                            cnter = cnter + 1
+                            if clord == 0:
+                                clord = 1
+                                print(clorr1 + str(cnter) + clorr2 + "|" + clorr1 + onichan + clorr2 + "|" + clorr1 + "CyMon" + clorr2 + "|" + clorr1 + "CYCheck" + clorr2 + "|" + clorr1 + "CYSCRAPE" + clorr2 + "|" + clorr1 + "XMON")
+                            elif clord == 1:
+                                clord = 0
+                                print(clorr2 + str(cnter) + clorr1 + "|" + clorr1 + onichan + clorr2 + "|" + clorr2 + "CyMon" + clorr1 + "|" + clorr2 + "CYCheck" + clorr1 + "|" + clorr2 + "CYSCRAPE" + clorr1 + "|" + clorr2 + "XMON")
+                            else: 
+                                pass
                 ccl = ccl + 1
         elif len(cc) < 15:
             pass
@@ -248,20 +251,19 @@ with TelegramClient(StringSession(string), api_id, api_hash) as client:
                 if ccer not in ccp and len(ccer) == 28:
                     ccp.append(ccer)
                     if ccer not in repeated:
-                    	repeated.add(ccer)
-                    	huin = list(repeated)
-                    	texti.write(huin[-1])
-                    	texti.write('\n')
-                    	texti.close
-                    	cnter = cnter + 1
-                    	if clord == 0:
-                        	clord = 1
-                        	print(clorr1 + str(cnter) + clorr2 + "|" + clorr1 + onichan + clorr2 + "|" + clorr1 + "CyMon" + clorr2 + "|" + clorr1 + "CYCheck" + clorr2 + "|" + clorr1 + "CYSCRAPE" + clorr2 + "|" + clorr1 + "XMON")
-                    	elif clord == 1:
-                        	clord = 0
-                        	print(clorr2 + str(cnter) + clorr1 + "|" + clorr1 + onichan + clorr2 + "|" + clorr2 + "CyMon" + clorr1 + "|" + clorr2 + "CYCheck" + clorr1 + "|" + clorr2 + "CYSCRAPE" + clorr1 + "|" + clorr2 + "XMON")
-                    	else:
-                        	pass
+                        repeated.add(ccer)
+                        texti.write(ccer)
+                        texti.write('\n')
+                        texti.close()
+                        cnter += 1
+                        if clord == 0:
+                            clord = 1
+                            print(clorr1 + str(cnter) + clorr2 + "|" + clorr1 + onichan + clorr2 + "|" + clorr1 + "CyMon" + clorr2 + "|" + clorr1 + "CYCheck" + clorr2 + "|" + clorr1 + "CYSCRAPE" + clorr2 + "|" + clorr1 + "XMON")
+                        elif clord == 1:
+                            clord = 0
+                            print(clorr2 + str(cnter) + clorr1 + "|" + clorr1 + onichan + clorr2 + "|" + clorr2 + "CyMon" + clorr1 + "|" + clorr2 + "CYCheck" + clorr1 + "|" + clorr2 + "CYSCRAPE" + clorr1 + "|" + clorr2 + "XMON")
+                        else:
+                            pass
             except:
                 pass
         else:
